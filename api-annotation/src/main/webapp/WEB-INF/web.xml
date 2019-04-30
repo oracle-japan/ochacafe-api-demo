@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This web.xml file is not required when using Servlet 3.0 container,
+     see implementation details http://jersey.java.net/nonav/documentation/latest/jax-rs.html -->
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+<servlet>
+    <servlet-name>OpenApi</servlet-name>
+
+    <!-- this servlet causes mojibake for double-byte annotations
+    <servlet-class>io.swagger.v3.jaxrs2.integration.OpenApiServlet</servlet-class>
+    -->
+    <!-- use my servlet to fix mojibake -->
+    <servlet-class>oracle.demo.servlet.OpenApiServlet</servlet-class>
+    
+    <!-- 
+    <init-param>
+      <param-name>openApi.configuration.resourcePackages</param-name>
+      <param-value>io.swagger.sample.resource</param-value>
+    </init-param>
+    -->
+    <!-- alternatively include a file openapi.json or openapi.yaml / openapi-configuration.json or openapi-configuration.yaml in classpath -->
+    <!-- alternatively include a configuration file in the location specified below -->
+    <!--
+    <init-param>
+      <param-name>openApi.configuration.location</param-name>
+      <param-value>/openapi-configuration.json</param-value>
+    </init-param>
+    -->
+
+  </servlet>
+
+  <servlet-mapping>
+    <servlet-name>OpenApi</servlet-name>
+    <url-pattern>/openapi/*</url-pattern>
+  </servlet-mapping>
+
+</web-app>

@@ -1,0 +1,17 @@
+box: maven:3.5.2-jdk-8-alpine
+
+build:
+  steps:
+    - wercker/maven: # changed from java/maven
+        goals: clean package
+        cache_repo: true
+    - internal/docker-build: 
+        dockerfile: target/Dockerfile 
+        image-name: api-helidon # name used to refer to this image until it's pushed   
+    - internal/docker-push:
+        image-name: api-helidon
+        username: $OCI_TENANT/$OCI_USERNAME
+        password: $OCI_AUTH_TOKEN
+        tag: latest
+        repository: $OCI_REGION/$OCI_TENANT/$OCIR_PREFIX/api-helidon
+        registry: https://$OCI_REGION/v2/

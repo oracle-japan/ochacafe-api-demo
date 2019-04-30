@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>oracle.demo</groupId>
+    <artifactId>api-helidon</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+    <name>api-helidon</name>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <mainClass>io.helidon.microprofile.server.Main</mainClass>
+        <docker.repo>api-helidon-jib</docker.repo>
+    </properties>
+
+    <build>
+        <finalName>api-helidon</finalName>
+        <resources>
+            <resource>
+                <directory>src/main/config</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <id>workaround-jib-issue-for-cdi</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>target/jib/app/classes/META-INF</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>src/main/resources/META-INF</directory>
+                                    <filtering>true</filtering>
+                                    <includes>
+                                        <include>beans.xml</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>1.0.2</version>
+                <configuration>
+                    <from>
+                        <image>openjdk:8-jre-alpine</image>
+                    </from>
+                    <to>
+                        <image>${docker.repo}</image>
+                        <tags>
+                            <tag>${project.version}</tag>
+                        </tags>
+                    </to>
+                    <!-- matched with maven-resources-plugin -->
+                    <extraDirectory>target/jib</extraDirectory>
+                    <container>
+                        <!-- good defaults intended for containers -->
+                        <jvmFlags>
+                            <jmxFlag>-server</jmxFlag>
+                            <jmxFlag>-Djava.awt.headless=true</jmxFlag>
+                            <jmxFlag>-XX:+UnlockExperimentalVMOptions</jmxFlag>
+                            <jmxFlag>-XX:+UseCGroupMemoryLimitForHeap</jmxFlag>
+                            <jmxFlag>-XX:InitialRAMFraction=2</jmxFlag>
+                            <jmxFlag>-XX:MinRAMFraction=2</jmxFlag>
+                            <jmxFlag>-XX:MaxRAMFraction=2</jmxFlag>
+                            <jmxFlag>-XX:+UseG1GC</jmxFlag>
+                        </jvmFlags>
+                        <mainClass>${mainClass}</mainClass>
+                        <ports>
+                            <port>8080</port>
+                        </ports>
+                    </container>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>dockerBuild</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.helidon.microprofile.bundles</groupId>
+            <artifactId>helidon-microprofile-1.2</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-binding</artifactId>
+            <version>2.26</version>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,16 @@
+/.settings/
+/.classpath
+/.project
+/.metadata
+
+/.gradle/
+/gradle.properties
+/gradle-app.setting
+
+/target
+/build
+
+/src/main/webapp/css
+/src/main/webapp/js/libs
+/src/main/webapp/scss
+

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>OchaCafe</title>
+
+<style type="text/css">
+<!--
+.demo {
+  width: 500px;
+  padding: 10px 0;
+  font-family: sans-serif;
+  font-size: 16px;
+  color:#222262;
+}
+.heading {
+  margin: 10px 0
+}
+.demo0 .heading {
+  position: relative;
+  padding-left: 40px;
+}
+.demo0 .heading:before,
+.demo0 .heading:after{
+  content: "□";
+  position: absolute;
+  width:4px;
+  height: 4px;
+}
+.demo0 .heading:before {
+  left:0;
+  top:-3px;
+}
+.demo0 .heading:after {
+  left: 5.5px;
+  top: 3.5px;
+}
+
+span.small {font-size: small; }
+-->
+</style>
+
+<script type="text/javascript" src="jquery.min.js"></script>
+
+<script type="text/javascript">
+
+    $(function(){
+
+        $("#country_name").val('');
+        $("#country_data").val('');
+        $("#base_url").val('http://jcs.ochacafe.kotegawa.com/api-ochacafe/api/v1');
+        $("#full_url").val('');
+
+        $("#button").click( function(){
+            $("#country_data").val('');
+
+            var countryId = $("#country_name").val();
+            if(0 == countryId.length){
+              $("#country_data").val("(国コードを入力して下さい)");
+              return;
+            }
+
+            url = $('#base_url').val() + $('input[name=cors]:checked').val() + countryId; 
+
+            $("#full_url").text(url);
+            $("#link_full_url").attr("href", url);
+            $("#country_data").val('送信中');
+
+            $.ajax({
+                url: url,
+                type: 'get',
+                //data: JSON.stringify(...),
+                //contentType: 'application/json',
+                dataType: 'JSON',
+                scriptCharset: 'utf-8',
+            }).done(function(data, textStatus, jqXHR) {
+                if(0 == data.length){
+                  $("#country_data").val('** 見つかりません **');
+                  return;
+                }
+                $("#country_data").val(data.countryName);
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR)
+                var errorText = jqXHR.status + " " + jqXHR.statusText + " - " + jqXHR.responseText
+                $("#country_data").val(errorText);
+            });
+
+        })
+    })
+</script>
+
+</head>
+<body class="demo demo0">
+    <div class="heading">OCHaCafe - JAX-RSフィルタを試してみる。</div>
+    <span class="small">** ContainerRequestFilter を使って認証機能を実装する **</span>
+    <br/>
+    <span class="small">** ContainerResponseFilter を使ってCORSヘッダをコントロールする **</span>
+<p/>
+    <table width="800">
+    <tr>
+      <td>Base URL</td>
+      <td><input id="base_url" size="80" type="text"/></td>
+    </tr><tr>
+      <td>国コード</td>
+      <td><input id="country_name" size="80"/></td>
+    </tr><tr>
+      <td>国名</td>
+      <td><input id="country_data" size="80" disabled="true" /></td>
+    </tr></table>
+
+    <p class="radio-area">
+      <input type="radio" name="cors" value="/country/" checked="checked">/country/{countryId}</input>
+      <br/>
+      <input type="radio" name="cors" value="/country/cors/">/country/cors/{countryId}</input>
+      <br/>
+      <input type="radio" name="cors" value="/country/auth/">/country/auth/{countryId}</input>
+    </p>
+
+    <p><button id="button" type="submit">送信する</button></p>
+    <span class="small"><a id="link_full_url" target="_blank"><label id="full_url"/></a></span>
+
+</body>
+</html>

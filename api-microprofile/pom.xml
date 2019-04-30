@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>oracle.demo</groupId>
+  <artifactId>api-microprofile</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>war</packaging>
+  <name>api-microprofile</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <build>
+    <finalName>api-microprofile</finalName>
+
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+
+      <!-- you can try geronimo OpenAPI tool - "mvn process-classes"
+      <plugin>
+        <groupId>org.apache.geronimo</groupId>
+        <artifactId>geronimo-openapi-maven-plugin</artifactId>
+        <version>1.0.7</version>
+        <executions>
+          <execution>
+            <id>generate-openapi.json</id>
+            <goals>
+              <goal>openapi.json</goal>
+            </goals>
+            <configuration>
+              <application>oracle.demo.App</application>
+              <endpointClasses>
+                <endpointClass>oracle.demo.CountryResource</endpointClass>
+              </endpointClasses>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      -->
+    </plugins>
+  </build>
+
+  <dependencies>
+    <dependency>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>7.0</version>
+      <scope>provided</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.eclipse.microprofile.openapi</groupId>
+      <artifactId>microprofile-openapi-api</artifactId>
+      <version>1.0.1</version>
+      <scope>provided</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.osgi</groupId>
+          <artifactId>org.osgi.annotation.versioning</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+
+</project>
