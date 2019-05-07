@@ -55,7 +55,7 @@ public class CountryResource {
         private static Map<Integer, String> countries;
         static {
             countries = new HashMap<Integer, String>();
-            countries.put(1, "United States of America");
+            countries.put(1, "USA");
             countries.put(81, "Japan");
         }
 
