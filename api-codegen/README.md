@@ -59,18 +59,18 @@ Running io.swagger.client.api.CountryApiTest
 >>> Test api.getCountry(1)
 class Country {
     countryId: 1
-    countryName: United States of America
+    countryName: USA
 }
 >>> Test api.getCountries()
 [0] class Country {
     countryId: 1
-    countryName: United States of America
+    countryName: USA
 }
 [1] class Country {
     countryId: 81
     countryName: Japan
 }
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.693 sec
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.803 sec
 
 Results :
 
