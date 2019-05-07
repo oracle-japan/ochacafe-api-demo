@@ -1,5 +1,5 @@
 /*
- * Open API アノテーション サンプル
+cd ..\ * Open API アノテーション サンプル
  * コード・ファーストでAPIを実装し、アノテーションを付加してOpen API仕様のドキュメントを出力するサンプルです.
  *
  * OpenAPI spec version: 1.0
@@ -68,6 +68,6 @@ public class CountryApiTest {
         // TODO: test validations
         System.out.println(">>> Test api.getCountry(1)");
         System.out.println(String.format("%s", response));
-        org.junit.Assert.assertEquals(1, response.getCountryId().intValue());
+        org.junit.Assert.assertEquals("USA", response.getCountryName());
     }
 }
