@@ -14,7 +14,7 @@ $ mvn clean package exec:java
 
 ```text
 $ curl localhost:8080/api/v1/country
-[{"countryId":1,"countryName":"United States of America"},{"countryId":81,"countryName":"Japan"}]
+[{"countryId":1,"countryName":"USA"},{"countryId":81,"countryName":"Japan"}]
 ```
 
 ### Dockerfileを使ってDocker イメージを作成する
@@ -33,7 +33,7 @@ $ docker run --rm -d --name api -p8888:8080 api-helidon:latest
 ba95caa85f40ec73959f8fc69c92f9b50e83e103b22e90f8841c5872f465a7ee
 
 $ curl http://localhost:8888/api/v1/country
-[{"countryId":1,"countryName":"United States of America"},{"countryId":81,"countryName":"Japan"}][opc@base-instance api-helidon]
+[{"countryId":1,"countryName":"USA"},{"countryId":81,"countryName":"Japan"}]
 
 $ docker stop api
 api
