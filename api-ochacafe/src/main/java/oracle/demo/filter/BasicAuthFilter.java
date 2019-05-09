@@ -29,7 +29,7 @@ public class BasicAuthFilter implements ContainerRequestFilter {
      */
     @Override
     public void filter(ContainerRequestContext context) throws IOException {
-        System.out.println("*** auth ***");
+        // System.out.println("*** auth ***");
 
         // Authorization: Basic dGVzdDoxMjPCow== (username:password)
 
@@ -45,7 +45,7 @@ public class BasicAuthFilter implements ContainerRequestFilter {
         }
 
         String decoded = new String(Base64.getDecoder().decode(headerElements[1]));
-        System.out.println(">> decoded: " + decoded);
+        // System.out.println(">> decoded: " + decoded);
 
         String[] userpw = decoded.split(":");
         if (2 != userpw.length || null == userpw[0] || null == userpw[1] || !userpw[0].equals(AUTH_USERNAME)
