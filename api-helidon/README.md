@@ -91,7 +91,7 @@ TINFO]
 
 #### Jibを使ってHelidonプロジェクトのイメージを作成する時の注意点
 
-Jibは、classes, resources, libs の3つのディレクトリを作って(内部的にはそれぞれがDockerイメージのレイヤーになっているらしい - これによって変更の局所化ができる!)、これにclasspathを通します。ところがHelidonはCDIを使っているため、この状況ではbeans.xmlがclassesのクラスパスに効かず、正常に起動しません。これを回避するために、maven-resources-plugin を使って classes/META-INFにもbeans.xmlにコピーしています。
+Jibは、classes, resources, libs の3つのディレクトリを作って(内部的にはそれぞれがDockerイメージのレイヤーになっているらしい - これによって変更の局所化ができる!)、これにclasspathを通します。ところがHelidonはCDIを使っているため、この状況ではbeans.xmlがclassesのクラスパスに効かず、正常に起動しません。これを回避するために、maven-resources-plugin を使って classes/META-INFにもbeans.xmlをコピーしています。
 
 ### その他の方法
 
