@@ -4,7 +4,7 @@
 
 |ディレクトリ|説明|
 |--|--|
-|[api-ochacafe](api-ochacafe) | デモの基本形となるJAX-RSリソース、ExcepetionMapper、Filterなど |
+|[api-ochacafe](api-ochacafe) | デモの基本形となるJAX-RSリソース、ExceptionMapper、Filterなど |
 |[api-annotation](api-annotation) | Swagger Core Annotation - サーバー上でOpenAPI Specを公開 |
 |[api-microprofile](api-microprofile) | MicroProfile OpenAPI Annotation バージョン |
 |[api-codegen](api-codegen) | OepnAPI Spec から Java Clientソースを生成 |
